@@ -40,7 +40,7 @@
     "pg": "^6.1.5",
     "rooty": "^2.0.0",
     "query-string": "latest",
-    "sequelize": "^3.33.0",
+    "sequelize": "^5.15.1",
     "swagger-parser": "^6.0.5",
     "swagger-routes-express": "^2.0.1",
     "swagger-ui-express": "latest",
