@@ -1,0 +1,1105 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "CAB BOOKING",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/1.0.0",
+      "description": "version-prefix"
+    },
+    {
+      "url": "http://localhost:8000/1.0.0",
+      "description": "development"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "Error": {
+        "required": [
+          "code",
+          "message"
+        ],
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "first_name": {
+            "type": "string",
+            "example": "Test"
+          },
+          "last_name": {
+            "type": "string",
+            "example": "User"
+          },
+          "profile_image_url": {
+            "type": "string",
+            "example": "http://via.placeholder.com/500x500"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@email.com"
+          },
+          "mobile_number": {
+            "type": "string",
+            "example": "87654321"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive",
+              "unverified"
+            ],
+            "example": "active"
+          },
+          "first_signin": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "Cab": {
+        "type": "object",
+        "properties": {
+          "cab_info": {
+            "type": "object",
+            "properties": {
+              "cab_number": {
+                "type": "string",
+                "example": "MH11-CE-8226"
+              },
+              "driver_name": {
+                "type": "string",
+                "example": "deepak"
+              },
+              "driver_mobile": {
+                "type": "string",
+                "example": "8888225544"
+              }
+            }
+          },
+          "current_latitude": {
+            "type": "number",
+            "example": 133333333
+          },
+          "current_longitude": {
+            "type": "number",
+            "example": 122222222
+          }
+        }
+      },
+      "CabBooking": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "cab_id": {
+            "type": "integer",
+            "example": 1
+          },
+          "pickup_info": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "example": 133333333
+              },
+              "longitude": {
+                "type": "number",
+                "example": 122222222
+              },
+              "area": {
+                "type": "string",
+                "example": "Pune Univercity"
+              }
+            }
+          },
+          "drop_info": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "example": 133333333
+              },
+              "longitude": {
+                "type": "number",
+                "example": 122222222
+              },
+              "area": {
+                "type": "string",
+                "example": "IT Park Pune"
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "inprogress",
+              "done",
+              "cancel"
+            ],
+            "example": "inprogress"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "limit": {
+        "in": "query",
+        "name": "limit",
+        "description": "Number of objects returned",
+        "schema": {
+          "type": "integer"
+        },
+        "example": 5
+      },
+      "offset": {
+        "name": "offset",
+        "in": "query",
+        "description": "Offset of query",
+        "schema": {
+          "type": "integer"
+        },
+        "example": 1
+      },
+      "orderBy": {
+        "name": "order_by",
+        "in": "query",
+        "description": "Field to sort by",
+        "schema": {
+          "type": "string"
+        },
+        "example": "id"
+      },
+      "order": {
+        "name": "order",
+        "in": "query",
+        "description": "Sort records in ASC or DESC",
+        "schema": {
+          "type": "string"
+        },
+        "example": "DESC"
+      },
+      "id": {
+        "name": "id",
+        "in": "query",
+        "description": "Array of ids to retrieve",
+        "schema": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "example": [
+          1,
+          2,
+          3
+        ]
+      }
+    },
+    "responses": {
+      "UnauthorizedError": {
+        "description": "Access token is missing or invalid"
+      },
+      "InvalidParameters": {
+        "description": "Parameters provided are invalid"
+      },
+      "ObjectExistsError": {
+        "description": "Object already exists"
+      }
+    }
+  },
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register",
+        "description": "Register",
+        "operationId": "register",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "test@email.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                },
+                "first_name": {
+                  "type": "string",
+                  "example": "Test"
+                },
+                "last_name": {
+                  "type": "string",
+                  "example": "User"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidParameters"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login",
+        "description": "Login",
+        "operationId": "login",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "test@email.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password123"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidParameters"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logout",
+        "description": "Logout",
+        "operationId": "logout",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get User Model based on auth token",
+        "description": "Get Me",
+        "operationId": "getMe",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidParameters"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Update CurrentUser",
+        "description": "Update CurrentUser",
+        "operationId": "updateCurrentUser",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/refresh_token": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Refresh Auth Token",
+        "description": "Refresh Auth Token",
+        "operationId": "refreshToken",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "integer",
+                  "example": 1
+                },
+                "refreshToken": {
+                  "type": "string",
+                  "example": "dlkslmmfidjslkskfhjjkfmkddkdllsmls"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidParameters"
+          }
+        }
+      }
+    },
+    "/cab": {
+      "get": {
+        "tags": [
+          "Cab"
+        ],
+        "summary": "Get Cab list",
+        "description": "Get Cab list.",
+        "operationId": "getCabList",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/order"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          },
+          {
+            "$ref": "#/components/parameters/id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "allOf": [
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/Cab"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cab"
+        ],
+        "summary": "Create Cab",
+        "description": "Create Cab",
+        "operationId": "createCab",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Cab"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/Cab"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cab/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "The id of the Cab to perform action on.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Cab"
+        ],
+        "summary": "Get Cab by id",
+        "description": "Get Cab by id",
+        "operationId": "getCabById",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/Cab"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Cab not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cab"
+        ],
+        "summary": "Update Cab",
+        "description": "Update Cab",
+        "operationId": "updateCab",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/components/schemas/Cab"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/Cab"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Cab not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cab"
+        ],
+        "summary": "Delete Cab",
+        "description": "Delete Cab",
+        "operationId": "deleteCab",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "Cab not found"
+          }
+        }
+      }
+    },
+    "/cab_booking": {
+      "get": {
+        "tags": [
+          "CabBooking"
+        ],
+        "summary": "Get CabBooking list",
+        "description": "Get CabBooking list.",
+        "operationId": "getCabBookingList",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/order"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          },
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "in": "query",
+            "name": "user_id",
+            "description": "Find booking of records by user ID",
+            "schema": {
+              "type": "integer"
+            },
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "allOf": [
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/CabBooking"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CabBooking"
+        ],
+        "summary": "Create CabBooking",
+        "description": "Create CabBooking",
+        "operationId": "createCabBooking",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/CabBooking"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/CabBooking"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cab_booking/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "description": "The id of the CabBooking to perform action on.",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "CabBooking"
+        ],
+        "summary": "Get CabBooking by id",
+        "description": "Get CabBooking by id",
+        "operationId": "getCabBookingById",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/CabBooking"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "CabBooking not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CabBooking"
+        ],
+        "summary": "Update CabBooking",
+        "description": "Update CabBooking",
+        "operationId": "updateCabBooking",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/components/schemas/CabBooking"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "allOf": [
+                    {
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "example": 1
+                        }
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/CabBooking"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "CabBooking not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CabBooking"
+        ],
+        "summary": "Delete CabBooking",
+        "description": "Delete CabBooking",
+        "operationId": "deleteCabBooking",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "CabBooking not found"
+          }
+        }
+      }
+    },
+    "/find_my_nearest_cab": {
+      "get": {
+        "tags": [
+          "My Nearest Cab"
+        ],
+        "summary": "Get My Nearest Cab list",
+        "description": "Get My Nearest Cab list.",
+        "operationId": "getFindMyNearestCabList",
+        "security": [
+          {
+            "BearerAuth": [
+              "default"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/limit"
+          },
+          {
+            "$ref": "#/components/parameters/offset"
+          },
+          {
+            "$ref": "#/components/parameters/order"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          },
+          {
+            "$ref": "#/components/parameters/id"
+          },
+          {
+            "in": "query",
+            "name": "latitude",
+            "description": "Find cab by user current latitude",
+            "schema": {
+              "type": "number"
+            },
+            "example": 133333333
+          },
+          {
+            "in": "query",
+            "name": "longitude",
+            "description": "Find cab by user current longitude",
+            "schema": {
+              "type": "number"
+            },
+            "example": 122222222
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "allOf": [
+                      {
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 1
+                          }
+                        }
+                      },
+                      {
+                        "$ref": "#/components/schemas/Cab"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

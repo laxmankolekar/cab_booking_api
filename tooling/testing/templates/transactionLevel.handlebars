@@ -1,0 +1,46 @@
+it('{{testLevelDescription}}', function() {
+            const API_URL = process.env['{{host}}'];
+            {{#ifEquals op 'delete'}}
+
+            {{#ifEquals expected.statusCode '200'}}
+            var response = request('delete', `${API_URL}{{trimId path}}/3`, {
+                headers: {
+                    authorization,
+                },
+                'time': true
+            });
+            {{else}}
+            var response = request('{{op}}', `${API_URL}{{path}}`, {
+                headers: {
+                    authorization,
+                },
+                {{#if (notEmptyObject body)}}
+                'body': {{json body}},{{/if}}
+                'time': true
+            });
+            {{/ifEquals}}
+
+            {{else}}
+            var response = request('{{op}}', `${API_URL}{{path}}`, {
+                headers: {
+					authorization,
+				},
+                {{#if (notEmptyObject body)}}
+                'body': {{json body}},{{/if}}
+                'time': true
+            });
+            {{/ifEquals}}
+
+            {{#if (isNotDefaultStatusCode expected.statusCode)}}
+            expect(response).to.have.status({{expected.statusCode}});
+            {{/if}}
+            {{#if expected.res}}
+            {{#if hasValue}}
+            expect(response).to.comprise.of.json({{json expected.res}});
+            {{else}}
+            expect(response).to.have.schema({{json expected.res}});
+            {{/if}}
+            {{/if}}
+            return chakram.wait();
+
+        });

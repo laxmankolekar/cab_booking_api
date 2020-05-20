@@ -1,0 +1,28 @@
+
+
+Cab
+---
+has many          cab_booking                              as CabBookingCabs 
+belongs to many   users                                    as CabBookingUsers 
+
+
+CabBooking
+----------
+belongs to        cab                                      as Cab 
+belongs to        users                                    as User 
+
+
+RefreshToken
+------------
+belongs to        users                                    as User 
+
+
+SequelizeMetum
+--------------
+
+
+User
+----
+has many          cab_booking                              as CabBookingUsers 
+has many          refresh_token                            as RefreshTokenUsers 
+belongs to many   cab                                      as CabBookingCabs 

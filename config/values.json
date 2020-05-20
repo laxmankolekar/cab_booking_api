@@ -1,0 +1,564 @@
+{
+  "header": {
+    "GlobalShow": "global",
+    "PathOverride": "global",
+    "OpOverrideFromGlobal": "global",
+    "StatusCodeOverrideFromGlobal": "global"
+  },
+  "path": {
+    "id": 1
+  },
+  "/register": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "post": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {
+          "first_name": "Test",
+          "last_name": "User",
+          "profile_image_url": "http://via.placeholder.com/500x500",
+          "mobile_number": "87654321",
+          "status": "active",
+          "first_signin": true
+        },
+        "body": {
+          "body": {
+            "email": "test+ygb1YmmfaX@negobot.co",
+            "password": "password123",
+            "first_name": "Test",
+            "last_name": "User"
+          }
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "409": {
+        "path": {
+          "id": 1
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/login": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "post": {
+      "200": {
+        "path": {
+          "id": 1
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/logout": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "get": {
+      "200": {
+        "path": {
+          "id": 1
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/me": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "get": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {
+          "first_name": "Test",
+          "last_name": "User",
+          "profile_image_url": "http://via.placeholder.com/500x500",
+          "mobile_number": "87654321",
+          "status": "active",
+          "first_signin": true
+        },
+        "body": {
+          "body": {}
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    },
+    "put": {
+      "200": {
+        "path": {
+          "id": "2"
+        },
+        "response": {
+          "first_name": "Test",
+          "last_name": "User",
+          "profile_image_url": "http://via.placeholder.com/500x500",
+          "mobile_number": "87654321",
+          "status": "active",
+          "first_signin": true
+        },
+        "body": {
+          "body": {
+            "first_name": "Test",
+            "last_name": "User",
+            "profile_image_url": "http://via.placeholder.com/500x500",
+            "email": "test+OAQn76n87q@negobot.co",
+            "mobile_number": "87654321",
+            "password": "password123",
+            "status": "active",
+            "first_signin": true
+          }
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        },
+        "body": {
+          "body": {
+            "first_name": "Test",
+            "last_name": "User",
+            "profile_image_url": "http://via.placeholder.com/500x500",
+            "email": "test+7emX2gcmhd@negobot.co",
+            "mobile_number": "87654321",
+            "password": "password123",
+            "status": "active",
+            "first_signin": true
+          }
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/refresh_token": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "post": {
+      "200": {
+        "path": {
+          "id": 1
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/cab": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "get": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {},
+        "body": {
+          "body": {}
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    },
+    "post": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {
+          "current_latitude": 133333333,
+          "current_longitude": 122222222
+        },
+        "body": {
+          "body": {
+            "current_latitude": 133333333,
+            "current_longitude": 122222222
+          }
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/cab/{id}": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "get": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {
+          "current_latitude": 133333333,
+          "current_longitude": 122222222
+        },
+        "body": {
+          "body": {}
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    },
+    "put": {
+      "200": {
+        "path": {
+          "id": "2"
+        },
+        "response": {
+          "current_latitude": 133333333,
+          "current_longitude": 122222222
+        },
+        "body": {
+          "body": {
+            "current_latitude": 133333333,
+            "current_longitude": 122222222
+          }
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        },
+        "body": {
+          "body": {
+            "current_latitude": 133333333,
+            "current_longitude": 122222222
+          }
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    },
+    "delete": {
+      "200": {
+        "path": {
+          "id": 1
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/cab_booking": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "get": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {},
+        "body": {
+          "body": {}
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      },
+      "url": "undefined?user_id={user_id}&"
+    },
+    "post": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {
+          "user_id": 1,
+          "cab_id": 1,
+          "status": "inprogress"
+        },
+        "body": {
+          "body": {
+            "user_id": 1,
+            "cab_id": 1,
+            "status": "inprogress"
+          }
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/cab_booking/{id}": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "get": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {
+          "user_id": 1,
+          "cab_id": 1,
+          "status": "inprogress"
+        },
+        "body": {
+          "body": {}
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    },
+    "put": {
+      "200": {
+        "path": {
+          "id": "2"
+        },
+        "response": {
+          "user_id": 1,
+          "cab_id": 1,
+          "status": "inprogress"
+        },
+        "body": {
+          "body": {
+            "user_id": 1,
+            "cab_id": 1,
+            "status": "inprogress"
+          }
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        },
+        "body": {
+          "body": {
+            "user_id": 1,
+            "cab_id": 1,
+            "status": "inprogress"
+          }
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    },
+    "delete": {
+      "200": {
+        "path": {
+          "id": 1
+        }
+      },
+      "400": {
+        "path": {
+          "id": "NotAValidID"
+        }
+      },
+      "404": {
+        "path": {
+          "id": 9999
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      }
+    }
+  },
+  "/find_my_nearest_cab": {
+    "header": {
+      "PathShow": "path",
+      "PathOverride": "path",
+      "OpOverrideFromPath": "path",
+      "StatusCodeOverrideFromPath": "path"
+    },
+    "get": {
+      "200": {
+        "path": {
+          "id": "1"
+        },
+        "response": {},
+        "body": {
+          "body": {}
+        }
+      },
+      "header": {
+        "OpShow": "op",
+        "OpOverrideFromGlobal": "op",
+        "OpOverrideFromPath": "op",
+        "StatusCodeOverrideFromOp": "op"
+      },
+      "url": "undefined?latitude={latitude}&longitude={longitude}&"
+    }
+  },
+  "id": "",
+  "environment": {}
+}
