@@ -24,7 +24,7 @@
   },
   "homepage": "",
   "dependencies": {
-    "bcrypt": "^3.0.4",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
     "colour": "^0.7.1",
     "cors": "^2.8.5",
