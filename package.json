@@ -28,7 +28,7 @@
     "body-parser": "^1.18.3",
     "colour": "^0.7.1",
     "cors": "^2.8.5",
-    "date-and-time": "^0.6.3",
+    "date-and-time": "^0.14.2",
     "dotenv": "^6.2.0",
     "ejs": "^2.5.9",
     "express": "^4.16.4",
