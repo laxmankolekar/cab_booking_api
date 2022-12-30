@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "chakram": "^1.5.0",
-    "mocha": "^6.0.1",
+    "mocha": "^10.2.0",
     "oatts": "^1.2.4",
     "pg-generator": "^4.8.0",
     "plop": "^2.3.0",
